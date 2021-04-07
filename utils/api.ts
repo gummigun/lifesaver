@@ -5,9 +5,12 @@ type productRes = {
 };
 
 export const getAllTasks = async () => {
-  return fetch("http://localhost:7000/api/tasks", {
-    method: "GET",
-  })
+  return fetch(
+    "http://lifesaver-server-dev.eu-west-1.elasticbeanstalk.com/api/tasks",
+    {
+      method: "GET",
+    }
+  )
     .then((response) => {
       return response.json();
     })
@@ -20,9 +23,13 @@ export const getAllTasks = async () => {
 };
 
 export const getTask = async (gid: string) => {
-  return fetch("http://localhost:7000/api/tasks/" + gid, {
-    method: "GET",
-  })
+  return fetch(
+    "http://lifesaver-server-dev.eu-west-1.elasticbeanstalk.com/api/tasks/" +
+      gid,
+    {
+      method: "GET",
+    }
+  )
     .then((response) => {
       return response.json();
     })

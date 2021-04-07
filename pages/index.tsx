@@ -1,5 +1,4 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 
 import { Box, HStack } from "@chakra-ui/react";
 import React from "react";
@@ -11,7 +10,7 @@ import { Header } from "../components/Header";
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Create GUMMI</title>
         <link rel="icon" href="/favicon.ico" />
@@ -27,6 +26,6 @@ export default function Home() {
         </HStack>
         <DarkModeSwitch />
       </Container>
-    </div>
+    </>
   );
 }
