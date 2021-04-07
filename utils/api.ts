@@ -45,7 +45,7 @@ export const getProducts = async () => {
   const allProducts: productRes[] = await getAllTasks();
 
   let products = [];
-  for (let x = 0; x < allProducts.length; x++) {
+  for (let x = 0; x < allProducts!.length; x++) {
     const taskDetail = await getTask(allProducts[x].gid);
     products.push(taskDetail);
   }
