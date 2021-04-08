@@ -34,7 +34,13 @@ export async function getStaticProps() {
   // Get external data from the file system, API, DB, etc.
   const data = await fetch(API_URL + "/cal", {
     method: "GET",
-  });
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((jData) => {
+      return jData.resp.data.items;
+    });
   console.log(data);
   return {
     props: {
