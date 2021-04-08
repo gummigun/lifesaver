@@ -8,6 +8,7 @@ import {
   GiSodaCan,
   GiTomato,
 } from "react-icons/gi";
+import { MdAddCircle } from "react-icons/md";
 import { Icon } from "@chakra-ui/react";
 
 export const getIcon = (id: string) => {
@@ -39,27 +40,30 @@ export const getIcon = (id: string) => {
 
 export const getTagIcon = (id: number) => {
   if (id === 0) {
-    return GiMilkCarton;
+    return MdAddCircle;
   }
   if (id === 1) {
-    return GiTomato;
+    return GiMilkCarton;
   }
   if (id === 2) {
-    return GiMeatCleaver;
+    return GiTomato;
   }
   if (id === 3) {
-    return GiFrozenOrb;
+    return GiMeatCleaver;
   }
   if (id === 4) {
-    return GiCoffeeCup;
+    return GiFrozenOrb;
   }
   if (id === 5) {
-    return GiCannedFish;
+    return GiCoffeeCup;
   }
   if (id === 6) {
-    return GiHouse;
+    return GiCannedFish;
   }
   if (id === 7) {
+    return GiHouse;
+  }
+  if (id === 8) {
     return GiSodaCan;
   }
 };

@@ -4,9 +4,10 @@ import { TaskDetail } from "../../utils/types";
 import { getIcon } from "../../utils/util";
 interface CardBaseProps {
   product: TaskDetail;
+  handleClick?: (value: any) => Promise<void>;
 }
 
-export const CardBase: React.FC<CardBaseProps> = ({ product }) => {
+export const CardBase: React.FC<CardBaseProps> = ({ product, handleClick }) => {
   return (
     <Center
       key={product.name}
@@ -16,6 +17,8 @@ export const CardBase: React.FC<CardBaseProps> = ({ product }) => {
       textAlign="center"
       boxShadow="base"
       borderRadius="5px"
+      onClick={(val) => handleClick(val)}
+      m={2}
     >
       <VStack p={8}>
         <Box color="white">{getIcon(product.tags[0].gid)}</Box>

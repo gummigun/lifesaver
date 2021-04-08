@@ -1,11 +1,14 @@
 import { Spacer, Switch, Tag, TagLeftIcon, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getTagIcon } from "../utils/util";
 
 interface CategoriesProps {
   cat: any;
-  selected: string[];
-  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
+  selected: string;
+  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  update: boolean;
+  setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  active: boolean;
   idx?: number;
   gid?: string;
 }
@@ -14,33 +17,29 @@ export const Categories: React.FC<CategoriesProps> = ({
   cat,
   selected,
   setSelected,
+  update,
+  setUpdate,
+  active,
   idx,
   gid,
 }) => {
-  const [order, setOrder] = useState(false);
-  const [update, setUpdate] = useState(false);
-
   const handleTagClick = (id: string) => {
-    const temp = selected;
-    let idx = temp.indexOf(id);
-
-    if (idx > -1) {
-      temp.splice(idx, 1);
-    } else {
-      temp.push(id);
-    }
-
-    setSelected(temp);
+    console.log("Clicked on ", id);
+    setSelected(gid);
     setUpdate(!update);
   };
+
+  useEffect(() => {
+    console.log("but ", selected, cat.id);
+  }, [selected]);
 
   return (
     <>
       <Tag
         size="lg"
         key={cat.categoryName}
-        bg={"category." + gid}
-        variant={selected.indexOf(cat.id) > -1 ? "solid" : "outline"}
+        bgColor={active ? "category." + gid : "white.900"}
+        variant={active ? "solid" : "outline"}
         onClick={() => handleTagClick(cat.id)}
         cursor="default"
         m={2}

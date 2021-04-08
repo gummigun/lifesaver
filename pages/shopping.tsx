@@ -3,6 +3,7 @@ import {
   Button,
   Center,
   Divider,
+  Flex,
   Heading,
   HStack,
   SimpleGrid,
@@ -28,9 +29,7 @@ const API_URL =
   "http://lifesaver-server-dev.eu-west-1.elasticbeanstalk.com/api";
 const Shopping = (props: any) => {
   const [loading, setLoading] = useState(false);
-  const [selected, setSelected] = useState<string[]>(
-    Array.from(props.categories, (cat: any) => cat.id)
-  );
+  const [selected, setSelected] = useState("all");
   const [update, setUpdate] = useState(false);
   const [order, setOrder] = useState(false);
   const [products] = useState(props.data);
@@ -71,6 +70,7 @@ const Shopping = (props: any) => {
   };
 
   const gids = [
+    "all",
     "1200154449836104",
     "1200154449836208",
     "1200154449836209",
@@ -83,6 +83,7 @@ const Shopping = (props: any) => {
 
   useEffect(() => {
     setLoadingProducts(false);
+    console.log("SELECTED ON RENDER ", selected);
   }, [update, order, show]);
 
   return (
@@ -112,6 +113,9 @@ const Shopping = (props: any) => {
                     cat={cat}
                     selected={selected}
                     setSelected={setSelected}
+                    update={update}
+                    setUpdate={setUpdate}
+                    active={selected === cat.id}
                     idx={idx}
                     gid={gids[idx]}
                   />
@@ -140,6 +144,9 @@ const Shopping = (props: any) => {
                         cat={cat}
                         selected={selected}
                         setSelected={setSelected}
+                        update={update}
+                        setUpdate={setUpdate}
+                        active={selected === cat.id}
                         idx={idx}
                         gid={gids[idx]}
                       />
@@ -147,40 +154,35 @@ const Shopping = (props: any) => {
                   );
                 })}
               </VStack>
-              <Spacer />
-              <HStack w="100%" align="center">
-                <Text>Flokkaröð</Text>
-                <Switch size="lg" onChange={() => setOrder(!order)} />
-                <Text>Stafrófsröð</Text>
-              </HStack>
             </VStack>
 
-            <SimpleGrid minChildWidth="100px" spacing="20px">
+            <Flex wrap="wrap">
               {order
                 ? products!
                     .filter((p: TaskDetail) => {
-                      return selected.indexOf(p.tags[0].gid) > -1;
+                      if (selected === "all") return true;
+                      return selected === p.tags[0].gid;
                     })
                     .sort((a: any, b: any) => (a.name > b.name ? 1 : -1))
                     .map((product: any, idx: number) => {
                       return (
-                        <Box key={idx} onClick={(val) => handleClick(val)}>
+                        <Box
+                          key={product.name}
+                          onClick={(val) => handleClick(val)}
+                        >
                           <CardBase product={product}></CardBase>
                         </Box>
                       );
                     })
                 : products
                     .filter((p: any) => {
-                      return selected.indexOf(p.tags[0].gid) > -1;
+                      if (selected === "all") return true;
+                      return selected === p.tags[0].gid;
                     })
                     .map((product: any, idx: number) => {
-                      return (
-                        <Box key={idx} onClick={(val) => handleClick(val)}>
-                          <CardBase product={product}></CardBase>
-                        </Box>
-                      );
+                      return <CardBase product={product}></CardBase>;
                     })}
-            </SimpleGrid>
+            </Flex>
           </>
         )}
       </Box>
@@ -208,6 +210,10 @@ export async function getStaticProps() {
   //console.log("DATA", data);
 
   const categories = [
+    {
+      id: "all",
+      categoryName: "Allt valið",
+    },
     {
       id: "1200154449836104",
       categoryName: "Mjólkurvörur",
