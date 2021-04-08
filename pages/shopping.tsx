@@ -33,7 +33,7 @@ const Shopping = (props: any) => {
   const handleClick = async (value: any) => {
     setLoading(true);
     const result = await fetch(
-      "http://lifesaver-server-dev.eu-west-1.elasticbeanstalk.com/api/tasks",
+      "https://lifesaver-server-dev.eu-west-1.elasticbeanstalk.com/api/tasks",
       {
         method: "POST",
         headers: {

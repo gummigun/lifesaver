@@ -6,7 +6,7 @@ type productRes = {
 
 export const getAllTasks = async () => {
   return fetch(
-    "http://lifesaver-server-dev.eu-west-1.elasticbeanstalk.com/api/tasks",
+    "https://lifesaver-server-dev.eu-west-1.elasticbeanstalk.com/api/tasks",
     {
       method: "GET",
     }
@@ -24,7 +24,7 @@ export const getAllTasks = async () => {
 
 export const getTask = async (gid: string) => {
   return fetch(
-    "http://lifesaver-server-dev.eu-west-1.elasticbeanstalk.com/api/tasks/" +
+    "https://lifesaver-server-dev.eu-west-1.elasticbeanstalk.com/api/tasks/" +
       gid,
     {
       method: "GET",
