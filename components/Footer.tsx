@@ -15,7 +15,7 @@ import { MdEvent, MdLibraryAdd } from "react-icons/md";
 
 export const Footer = () => (
   <>
-    <Flex w="100%" h="10vh" bgColor="gray.700">
+    <Flex w="100%" h="10%" bgColor="gray.700" pos="fixed" bottom="0" left="0">
       <Link href="/">
         <Center w="50%">
           <Box display={["none", "none", "block", "block"]}>

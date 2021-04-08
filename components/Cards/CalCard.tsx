@@ -1,4 +1,4 @@
-import { Center, Heading, Icon, VStack } from "@chakra-ui/react";
+import { Center, Heading, Icon, VStack, Text } from "@chakra-ui/react";
 import React from "react";
 import { MdEvent } from "react-icons/md";
 interface CalCardProps {
@@ -6,6 +6,14 @@ interface CalCardProps {
 }
 
 export const CalCard: React.FC<CalCardProps> = ({ item }) => {
+  const handleDate = () => {
+    const date = new Date(item.start.dateTime).toUTCString();
+    return (
+      <Text fontSize="md" color="white">
+        {date}
+      </Text>
+    );
+  };
   return (
     <Center
       key={item.summary}
@@ -17,10 +25,11 @@ export const CalCard: React.FC<CalCardProps> = ({ item }) => {
       borderRadius="5px"
     >
       <VStack p={8}>
-        <Icon as={MdEvent} boxSize="1rem" color="white" />
+        <Icon as={MdEvent} boxSize="2rem" color="white" />
         <Heading fontSize="md" color="white" cursor="default">
           {item.summary}
         </Heading>
+        {handleDate()}
       </VStack>
     </Center>
   );

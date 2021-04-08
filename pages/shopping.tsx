@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Center,
+  Divider,
   Heading,
   HStack,
   SimpleGrid,
@@ -69,33 +70,42 @@ const Shopping = (props: any) => {
     setShow(!show);
   };
 
+  const gids = [
+    "1200154449836104",
+    "1200154449836208",
+    "1200154449836209",
+    "1200154449836210",
+    "1200154449836212",
+    "1200154449836211",
+    "1200154449836213",
+    "1200154449836214",
+  ];
+
   useEffect(() => {
     setLoadingProducts(false);
   }, [update, order, show]);
 
   return (
-    <Container height="100vh">
+    <Container height="100%">
       <Header />
       <Box
         w={["100%", "100%", "90%", "90%"]}
-        h="85vh"
         p={4}
+        h="80%"
+        mb={20}
         flexWrap="wrap"
-        overflow="scroll"
       >
         {loadingProducts ? (
           <div>...loading</div>
         ) : (
           <>
-            <HStack
-              w="100%"
-              p={4}
-              mb={8}
-              wrap="wrap"
-              display={["none", "none", "block", "block"]}
-            >
-              <Text>Birta flokka: </Text>
-
+            <HStack ml={2} mb={2}>
+              <Text>Röðun: </Text>
+              <Text ml={4}>Flokkaröð</Text>
+              <Switch size="lg" onChange={() => setOrder(!order)} />
+              <Text>Stafrófsröð</Text>
+            </HStack>
+            <Box w="100%" wrap="wrap" display={notDisplayCategories} mb={8}>
               {props.categories.map((cat: any, idx: number) => {
                 return (
                   <Categories
@@ -103,14 +113,12 @@ const Shopping = (props: any) => {
                     selected={selected}
                     setSelected={setSelected}
                     idx={idx}
+                    gid={gids[idx]}
                   />
                 );
               })}
-              <Spacer />
-              <Text ml={4}>Flokkaröð</Text>
-              <Switch size="lg" onChange={() => setOrder(!order)} />
-              <Text>Stafrófsröð</Text>
-            </HStack>
+              <Divider my={4} />
+            </Box>
             <VStack
               w="100%"
               p={4}
@@ -133,6 +141,7 @@ const Shopping = (props: any) => {
                         selected={selected}
                         setSelected={setSelected}
                         idx={idx}
+                        gid={gids[idx]}
                       />
                     </Box>
                   );
@@ -189,7 +198,6 @@ const Shopping = (props: any) => {
       ) : null}
 
       <Footer />
-      <DarkModeSwitch />
     </Container>
   );
 };

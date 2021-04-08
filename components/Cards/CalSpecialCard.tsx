@@ -6,14 +6,24 @@ import {
   TagLabel,
   TagLeftIcon,
   VStack,
+  Text,
 } from "@chakra-ui/react";
 import React from "react";
 import { MdAccessTime, MdEvent } from "react-icons/md";
+
 interface CalSpecialCardProps {
   item: any;
 }
 
 export const CalSpecialCard: React.FC<CalSpecialCardProps> = ({ item }) => {
+  const handleDate = () => {
+    const date = new Date(item.start.dateTime).toUTCString();
+    return (
+      <Text fontSize="lg" color="white">
+        {date}
+      </Text>
+    );
+  };
   return (
     <>
       <Box
@@ -36,6 +46,7 @@ export const CalSpecialCard: React.FC<CalSpecialCardProps> = ({ item }) => {
           <Heading fontSize="xl" color="white" cursor="default">
             {item.summary}
           </Heading>
+          {handleDate()}
         </VStack>
       </Box>
     </>

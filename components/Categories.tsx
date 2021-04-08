@@ -7,6 +7,7 @@ interface CategoriesProps {
   selected: string[];
   setSelected: React.Dispatch<React.SetStateAction<string[]>>;
   idx?: number;
+  gid?: string;
 }
 
 export const Categories: React.FC<CategoriesProps> = ({
@@ -14,6 +15,7 @@ export const Categories: React.FC<CategoriesProps> = ({
   selected,
   setSelected,
   idx,
+  gid,
 }) => {
   const [order, setOrder] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -37,10 +39,11 @@ export const Categories: React.FC<CategoriesProps> = ({
       <Tag
         size="lg"
         key={cat.categoryName}
-        colorScheme="blue"
+        bg={"category." + gid}
         variant={selected.indexOf(cat.id) > -1 ? "solid" : "outline"}
         onClick={() => handleTagClick(cat.id)}
         cursor="default"
+        m={2}
       >
         <TagLeftIcon boxSize="20px" as={getTagIcon(idx)} />
         {cat.categoryName}

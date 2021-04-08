@@ -18,13 +18,12 @@ const Home = (props: any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container height="100vh">
+      <Container height="100%">
         <Header />
-        <Box w="100%" h="85vh" p={4}>
+        <Box w="100%" h="80%" p={4}>
           <Calendar data={props.data} />
         </Box>
         <Footer />
-        <DarkModeSwitch />
       </Container>
     </>
   );
