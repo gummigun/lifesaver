@@ -21,9 +21,7 @@ export default function Home() {
         <Box w="100%" h="85vh" p={4}>
           <Calendar />
         </Box>
-        <HStack w="100%" h="10vh" bgColor="gray.700">
-          <Footer />
-        </HStack>
+        <Footer />
         <DarkModeSwitch />
       </Container>
     </>

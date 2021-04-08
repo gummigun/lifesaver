@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Center,
   Heading,
   HStack,
@@ -9,9 +10,11 @@ import {
   Tag,
   TagLeftIcon,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { CardBase } from "../components/Cards/CardBase";
+import { Categories } from "../components/Categories";
 import { Container } from "../components/Container";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { Footer } from "../components/Footer";
@@ -31,6 +34,7 @@ const Shopping = (props: any) => {
   const [order, setOrder] = useState(false);
   const [products] = useState(props.data);
   const [loadingProducts, setLoadingProducts] = useState(true);
+  const [show, setShow] = useState(false);
 
   const handleClick = async (value: any) => {
     setLoading(true);
@@ -58,51 +62,48 @@ const Shopping = (props: any) => {
     console.log(content);
   };
 
-  const handleTagClick = (id: string) => {
-    const temp = selected;
-    let idx = temp.indexOf(id);
-
-    if (idx > -1) {
-      temp.splice(idx, 1);
-    } else {
-      temp.push(id);
-    }
-
-    setSelected(temp);
-    setUpdate(!update);
+  const displayCategories = ["block", "block", "none", "none"];
+  const notDisplayCategories = ["none", "none", "block", "block"];
+  const handleOpen = () => {
+    console.log("Show");
+    setShow(!show);
   };
 
   useEffect(() => {
     setLoadingProducts(false);
-  }, [update, order]);
+  }, [update, order, show]);
 
   return (
     <Container height="100vh">
       <Header />
-      <Box w="90%" h="85vh" p={4} flexWrap="wrap">
+      <Box
+        w={["100%", "100%", "90%", "90%"]}
+        h="85vh"
+        p={4}
+        flexWrap="wrap"
+        overflow="scroll"
+      >
         {loadingProducts ? (
           <div>...loading</div>
         ) : (
           <>
-            <HStack p={4} mb={8}>
+            <HStack
+              w="100%"
+              p={4}
+              mb={8}
+              wrap="wrap"
+              display={["none", "none", "block", "block"]}
+            >
               <Text>Birta flokka: </Text>
+
               {props.categories.map((cat: any, idx: number) => {
                 return (
-                  <>
-                    <Tag
-                      size="lg"
-                      key={cat.categoryName}
-                      colorScheme="blue"
-                      variant={
-                        selected.indexOf(cat.id) > -1 ? "solid" : "outline"
-                      }
-                      onClick={() => handleTagClick(cat.id)}
-                      cursor="default"
-                    >
-                      <TagLeftIcon boxSize="20px" as={getTagIcon(idx)} />
-                      {cat.categoryName}
-                    </Tag>
-                  </>
+                  <Categories
+                    cat={cat}
+                    selected={selected}
+                    setSelected={setSelected}
+                    idx={idx}
+                  />
                 );
               })}
               <Spacer />
@@ -110,6 +111,40 @@ const Shopping = (props: any) => {
               <Switch size="lg" onChange={() => setOrder(!order)} />
               <Text>Stafrófsröð</Text>
             </HStack>
+            <VStack
+              w="100%"
+              p={4}
+              mb={8}
+              wrap="wrap"
+              display={displayCategories}
+            >
+              <Button w="100%" colorScheme="teal" onClick={handleOpen}>
+                Birta flokka
+              </Button>
+              <VStack
+                align="left"
+                display={show ? displayCategories : notDisplayCategories}
+              >
+                {props.categories.map((cat: any, idx: number) => {
+                  return (
+                    <Box>
+                      <Categories
+                        cat={cat}
+                        selected={selected}
+                        setSelected={setSelected}
+                        idx={idx}
+                      />
+                    </Box>
+                  );
+                })}
+              </VStack>
+              <Spacer />
+              <HStack w="100%" align="center">
+                <Text>Flokkaröð</Text>
+                <Switch size="lg" onChange={() => setOrder(!order)} />
+                <Text>Stafrófsröð</Text>
+              </HStack>
+            </VStack>
 
             <SimpleGrid minChildWidth="100px" spacing="20px">
               {order
@@ -153,9 +188,7 @@ const Shopping = (props: any) => {
         </Center>
       ) : null}
 
-      <HStack w="100%" h="10vh" bgColor="gray.700">
-        <Footer />
-      </HStack>
+      <Footer />
       <DarkModeSwitch />
     </Container>
   );
