@@ -19,8 +19,9 @@ import { Header } from "../components/Header";
 import { getProducts } from "../utils/api";
 import { TaskDetail } from "../utils/types";
 import { getTagIcon } from "../utils/util";
-import * as dotenv from "dotenv";
 
+const API_URL =
+  "http://lifesaver-server-dev.eu-west-1.elasticbeanstalk.com/api";
 const Shopping = (props: any) => {
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState<string[]>(
@@ -31,11 +32,9 @@ const Shopping = (props: any) => {
   const [products] = useState(props.data);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
-  dotenv.config();
-
   const handleClick = async (value: any) => {
     setLoading(true);
-    const result = await fetch(process.env.API_URL + "/tasks", {
+    const result = await fetch(API_URL + "/tasks", {
       method: "POST",
       headers: {
         Accept: "application/json",
