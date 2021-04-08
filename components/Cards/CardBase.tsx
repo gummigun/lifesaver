@@ -18,7 +18,7 @@ export const CardBase: React.FC<CardBaseProps> = ({ product, handleClick }) => {
       boxShadow="base"
       borderRadius="5px"
       onClick={(val) => handleClick(val)}
-      m={2}
+      m={[1, 1, 2, 2]}
     >
       <VStack p={8}>
         <Box color="white">{getIcon(product.tags[0].gid)}</Box>
