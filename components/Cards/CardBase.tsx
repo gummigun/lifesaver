@@ -2,7 +2,6 @@ import { Center, Heading, Box, VStack } from "@chakra-ui/react";
 import React from "react";
 import { TaskDetail } from "../../utils/types";
 import { getIcon } from "../../utils/util";
-
 interface CardBaseProps {
   product: TaskDetail;
 }

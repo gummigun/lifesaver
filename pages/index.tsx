@@ -41,7 +41,7 @@ export async function getStaticProps() {
     .then((jData) => {
       return jData.resp.data.items;
     });
-  console.log(data);
+  //console.log(data);
   return {
     props: {
       data,
