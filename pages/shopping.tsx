@@ -19,6 +19,7 @@ import { Header } from "../components/Header";
 import { getProducts } from "../utils/api";
 import { TaskDetail } from "../utils/types";
 import { getTagIcon } from "../utils/util";
+import * as dotenv from "dotenv";
 
 const Shopping = (props: any) => {
   const [loading, setLoading] = useState(false);
@@ -30,27 +31,26 @@ const Shopping = (props: any) => {
   const [products] = useState(props.data);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
+  dotenv.config();
+
   const handleClick = async (value: any) => {
     setLoading(true);
-    const result = await fetch(
-      "https://lifesaver-server-dev.eu-west-1.elasticbeanstalk.com/api/tasks",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          approval_status: "pending",
-          completed: false,
-          name: value.target.innerText,
-          notes: "",
-          projects: ["251799705353963"],
-          resource_subtype: "default_task",
-          workspace: "9471440416025",
-        }),
-      }
-    );
+    const result = await fetch(process.env.API_URL + "/tasks", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        approval_status: "pending",
+        completed: false,
+        name: value.target.innerText,
+        notes: "",
+        projects: ["251799705353963"],
+        resource_subtype: "default_task",
+        workspace: "9471440416025",
+      }),
+    });
 
     const content = await result.json().then((response) => {
       setLoading(false);

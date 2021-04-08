@@ -1,16 +1,17 @@
+import * as dotenv from "dotenv";
+
 type productRes = {
   gid: string;
   name: string;
   resouce_type: string;
 };
 
+dotenv.config();
+
 export const getAllTasks = async () => {
-  return fetch(
-    "https://lifesaver-server-dev.eu-west-1.elasticbeanstalk.com/api/tasks",
-    {
-      method: "GET",
-    }
-  )
+  return fetch(process.env.API_URL + "/tasks", {
+    method: "GET",
+  })
     .then((response) => {
       return response.json();
     })
@@ -23,13 +24,9 @@ export const getAllTasks = async () => {
 };
 
 export const getTask = async (gid: string) => {
-  return fetch(
-    "https://lifesaver-server-dev.eu-west-1.elasticbeanstalk.com/api/tasks/" +
-      gid,
-    {
-      method: "GET",
-    }
-  )
+  return fetch(process.env.API_URL + "/tasks/" + gid, {
+    method: "GET",
+  })
     .then((response) => {
       return response.json();
     })
